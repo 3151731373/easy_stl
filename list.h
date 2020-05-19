@@ -26,6 +26,7 @@ public:
     myList(){create();}
     ~myList(){uncreate();}
     void push_back(const T&val);
+    void pop_back();
     void print();
     void sort();
 
@@ -72,6 +73,19 @@ void myList<T>:: push_back(const T &val)
     ptr->_prev=head_tmp;
     ptr->_next=tail_tmp;
     tail_tmp->_prev=ptr;
+}
+
+template <class T>
+void myList<T>:: pop_back()
+{
+    iterator it=tail->_prev;
+    if(it!=head)
+    {
+        iterator tmp_pre=it->_prev, tmp_next=it->_next;
+        delete it;
+        tmp_pre->_next=tmp_next;
+        tmp_next->_prev=tmp_pre;
+    }
 }
 
 template <class T>
